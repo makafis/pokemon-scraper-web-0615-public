@@ -11,23 +11,24 @@ describe "Pokemon" do
 
   describe "has caught all 151 from scraping" do
     it "has all 151 pokemon" do
-      expect(@db.execute("YOUR SQL HERE").flatten.first).to eq(151)
+      expect(@db.execute("SELECT count(id) from pokemons").flatten.first).to eq(151)
     end
 
     it "knows all the information about Horsea" do
-      expect(@db.execute("YOUR SQL HERE").flatten).to eq([116, "Horsea", "Water"])
+
+      expect(@db.execute("select id, name, type from pokemons where name = 'Horsea'").flatten).to eq([116, "Horsea", "Water"])
     end
 
     it "knows Psyduck is the 54th pokemon" do
-      expect(@db.execute("YOUR SQL HERE").flatten.first).to eq(54)
+      expect(@db.execute("select id from pokemons where name = 'Psyduck'").flatten.first).to eq(54)
     end
 
     it "knows pokemon with the id 143 is Snorlax" do
-      expect(@db.execute("YOUR SQL HERE").flatten.first).to eq("Snorlax")
+      expect(@db.execute("select name from pokemons where id = 143").flatten.first).to eq("Snorlax")
     end
 
     it "knows Charmander's type is fire" do
-      expect(@db.execute("YOUR SQL HERE").flatten.first).to eq("Fire")
+      expect(@db.execute("select type from pokemons where name = 'Charmander'").flatten.first).to eq("Fire")
     end
   end
 
@@ -37,11 +38,11 @@ describe "Pokemon" do
     end
 
     it "knows the pokemon count increases" do
-      expect(@db.execute("YOUR SQL HERE").flatten.first).to eq(152)
+      expect(@db.execute("SELECT count(id) from pokemons").flatten.first).to eq(152)
     end
 
     it "has Togepi as the last pokemon" do
-      expect(@db.execute("YOUR SQL HERE").flatten.first).to eq("Togepi")
+      expect(@db.execute("SELECT name from pokemons where id = (select last_insert_rowid(*) from pokemons)").flatten.first).to eq("Togepi")
     end
   end
 

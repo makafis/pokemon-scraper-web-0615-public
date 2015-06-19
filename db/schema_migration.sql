@@ -1,2 +1,8 @@
 -- Write your sql commands to create your db schema here.
 -- It should create a table in a new table in the db/ directory.
+
+create table IF NOT EXISTS pokemons(
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT,
+  type TEXT
+);
